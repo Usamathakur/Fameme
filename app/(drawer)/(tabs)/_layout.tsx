@@ -1,8 +1,9 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
+import { Link, Tabs, useNavigation } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
+import { Image } from 'react-native';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -12,6 +13,17 @@ function TabBarIcon(props: {
   color: string;
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function AvatarHeader(){
+  const navigation = useNavigation();
+  return(
+    <Pressable onPress={()=> navigation.openDrawer()}>
+    <Image src='https://s3-eu-west-1.amazonaws.com/pfigshare-u-profiles/12488818/photo.jpg' 
+    style={{width:30,aspectRatio:1,borderRadius:40,marginLeft:10}}
+    />
+    </Pressable>
+  )
 }
 
 export default function TabLayout() {
@@ -41,6 +53,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>
           ),
+          headerLeft:()=><AvatarHeader/>
         }}
       />
       <Tabs.Screen
