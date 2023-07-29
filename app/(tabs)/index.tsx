@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor:'white'
   },
   floatingButton:{
-    backgroundColor:'#1D9BF0',
+    backgroundColor:'red',
     width:50,
     height:50,
     borderRadius:50,
