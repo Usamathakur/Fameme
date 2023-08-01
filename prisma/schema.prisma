@@ -10,17 +10,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
+model User {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   email String @unique
-  name String
-  username String @unique
+
+  name String?
+  username String? @unique
   image String?
   bio String?
-  isTrended Boolean @default(false)
+  isVerified Boolean @default(false)
+
   trends Trend[]
+  tokens Token[]
+}
+
+model Token {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  type String // EMAIL|API
+  emailToken String? @unique
+
+  valid Boolean @default(true)
+  expiration DateTime
+
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Trend{
