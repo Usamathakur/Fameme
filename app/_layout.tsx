@@ -5,6 +5,8 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { QueryClient,QueryClientProvider } from '@tanstack/react-query';
+import AuthContextProvider from '../context/AuthContext';
+import TrendsApiContextProvider from '../lib/api/trends';
 
 const client = new QueryClient()
 export {
@@ -42,6 +44,8 @@ function RootLayoutNav() {
 
   return (
     <>
+    <AuthContextProvider>
+      <TrendsApiContextProvider>
     <QueryClientProvider client={client}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
@@ -53,6 +57,8 @@ function RootLayoutNav() {
         </Stack>
       </ThemeProvider>
       </QueryClientProvider>
+      </TrendsApiContextProvider>
+      </AuthContextProvider>
     </>
   );
 }

@@ -1,14 +1,27 @@
-import { View, Text, TextInput, Pressable,StyleSheet } from 'react-native'
+import { View, Text, TextInput, Pressable,StyleSheet,Alert } from 'react-native'
 import React, { useState } from 'react'
 import { useSearchParams } from 'expo-router';
+import { authenticate } from '../../lib/api/auth';
+import { useAuth } from '../../context/AuthContext';
 
 
-const SignIn = () => {
+const Authenticate = () => {
     const [code,setCode] = useState('');
     const {email} = useSearchParams();
 
+    const {setAuthToken} = useAuth();
+
     const onConfirm = async ()=>{
-        console.warn("Authenticate: ",email,code)
+        if(typeof email!='string'){
+            return;
+        }
+        try{
+            const res = await authenticate({email,emailToken:code})
+            console.log(res);
+            setAuthToken(res.authToken);
+        }catch(e){
+            Alert.alert("Error","Email code does not match",e.message)
+        }
     }
   return (
     <View style={styles.container}>
@@ -62,4 +75,4 @@ const styles = StyleSheet.create({
     },
   });
   
-  export default SignIn;
+  export default Authenticate;

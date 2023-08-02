@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ActivityIndicator, Pressable, SafeAreaView } from "react-native";
 import { View,StyleSheet, Text, Image, TextInput } from "react-native";
 import { useMutation,useQueryClient } from "@tanstack/react-query/";
-import { createTrend } from "../lib/api/trends";
+import { useTrendsApi } from "../lib/api/trends";
 const user={
     id: 'u1',
     username: 'VadimNotJustDev',
@@ -14,6 +14,8 @@ const user={
 export default function NewTweet(){
     const [text,setText]=useState('');
     const router = useRouter();
+    const {createTrend} = useTrendsApi();
+
     const queryClient = useQueryClient();
     const { mutateAsync, isLoading, isError, error } = useMutation({
         mutationFn: createTrend,

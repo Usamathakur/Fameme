@@ -5,9 +5,11 @@ import Tweet from '../../../../components/Tweet';
 import { Entypo } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import {useState,useEffect} from 'react'
-import { listTrends } from '../../../../lib/api/trends';
+import { useTrendsApi } from '../../../../lib/api/trends';
 import { useQuery } from '@tanstack/react-query/';
 export default function FeedScreen() {
+  const {listTrends} = useTrendsApi();
+
   const {data,isLoading,error} = useQuery({
     queryKey:['trends'],
     queryFn: listTrends,

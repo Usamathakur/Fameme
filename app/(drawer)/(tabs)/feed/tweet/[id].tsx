@@ -2,9 +2,10 @@ import Tweet from "../../../../../components/Tweet";
 import {ActivityIndicator, Text} from 'react-native'
 import { useSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query/";
-import { getTrend } from "../../../../../lib/api/trends";
+import { useTrendsApi } from "../../../../../lib/api/trends";
 export default function TweetScreen(){
     const {id} = useSearchParams();
+    const {getTrend} = useTrendsApi();
     const {data,isLoading,error} = useQuery({
         queryKey:['trend',id],
         queryFn: ()=>getTrend(id as string)
