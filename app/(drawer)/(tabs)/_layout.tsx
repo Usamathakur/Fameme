@@ -7,7 +7,7 @@ import { Image } from 'react-native';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(feed)',
+  initialRouteName: 'feed',
 };
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -39,7 +39,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
       <Tabs.Screen
-        name="(feed)"
+        name="feed"
         options={{
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,

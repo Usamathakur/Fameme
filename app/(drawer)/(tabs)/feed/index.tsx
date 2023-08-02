@@ -1,14 +1,35 @@
-import { StyleSheet,FlatList, Pressable } from 'react-native';
+import { StyleSheet,FlatList, Pressable, ActivityIndicator } from 'react-native';
 import { Text, View} from '../../../../components/Themed';
 import Tweet from '../../../../components/Tweet';
-import tweets from '../../../../assets/tweets';
+//import tweets from '../../../../assets/tweets';
 import { Entypo } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-
-export default function TabOneScreen() {
+import {useState,useEffect} from 'react'
+import { listTrends } from '../../../../lib/api/trends';
+import { useQuery } from '@tanstack/react-query/';
+export default function FeedScreen() {
+  const {data,isLoading,error} = useQuery({
+    queryKey:['trends'],
+    queryFn: listTrends,
+  })
+  /* const [trends,setTrend] = useState([]);
+  
+  useEffect(()=>{
+    const fetchTrends = async ()=>{
+      const res = await listTrends();
+      setTrend(res);
+    };
+    fetchTrends();
+  },[]) */
+  if(isLoading){
+    return <ActivityIndicator/>
+  }
+  if(error){
+    return <Text>{error.message}</Text>
+  }
   return (
     <View style={styles.page}>
-      <FlatList data={tweets} renderItem={({item})=><Tweet tweet={item}/>}/>
+      <FlatList data={data} renderItem={({item})=><Tweet tweet={item}/>}/>
       
       <Pressable style={styles.floatingButton}>
       <Link href='/new-tweet' asChild>
